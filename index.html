@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rafael & Luana — Nosso Casamento</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --vinho: #6B1A2A;
+    --vinho-escuro: #4A0F1C;
+    --vinho-claro: #8B2A3E;
+    --vinho-light: #C4768A;
+    --rosa: #E8B4C0;
+    --rose-pale: #F5E6EA;
+    --creme: #FDF6F0;
+    --dourado: #C9A96E;
+    --dourado-claro: #E8D5A8;
+    --verde-tropical: #2D5A3D;
+    --verde-folha: #3D7A52;
+    --laranja-tropical: #D4813A;
+    --coral: #E8906A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--creme);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ===== PÁGINAS ===== */
+  .page {
+    min-height: 100vh;
+    width: 100%;
+    display: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .page.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+  /* ===== FLORES SVG DE FUNDO ===== */
+  .floral-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ===== PÁGINA 1 — CAPA ===== */
+  #page1 {
+    background: linear-gradient(160deg, var(--creme) 0%, #F0E8DC 50%, var(--rose-pale) 100%);
+    padding: 2rem;
+  }
+
+  .floral-ring {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    animation: fadeIn 1.4s ease forwards;
+  }
+
+  .floral-ring svg.ring-svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 520px;
+    height: 520px;
+    pointer-events: none;
+  }
+
+  .center-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .names-top {
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.35em;
+    color: var(--vinho);
+    text-transform: uppercase;
+    animation: slideDown 1s ease 0.3s both;
+  }
+
+  .subtitle-top {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--vinho-claro);
+    letter-spacing: 0.1em;
+    animation: slideDown 1s ease 0.5s both;
+  }
+
+  /* ===== ENVELOPE ===== */
+  .envelope-wrap {
+    margin: 1.2rem 0;
+    cursor: pointer;
+    animation: slideDown 1s ease 0.7s both;
+    position: relative;
+  }
+
+  .envelope-wrap:hover .envelope { transform: scale(1.05); }
+  .envelope-wrap:hover .env-flap { transform: rotateX(-30deg); }
+
+  .envelope {
+    width: 160px;
+    height: 110px;
+    background: var(--vinho);
+    border-radius: 4px 4px 8px 8px;
+    position: relative;
+    transition: transform 0.3s ease;
+    box-shadow: 0 8px 30px rgba(107,26,42,0.35);
+    overflow: hidden;
+  }
+
+  .env-body {
+    position: absolute;
+    inset: 0;
+    background: var(--vinho);
+  }
+  .env-fold-left {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 0 0 55px 80px;
+    border-color: transparent transparent var(--vinho-escuro) transparent;
+  }
+  .env-fold-right {
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 0 80px 55px 0;
+    border-color: transparent var(--vinho-escuro) transparent transparent;
+  }
+  .env-seal {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -40%);
+    width: 36px; height: 36px;
+    background: var(--dourado);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    color: var(--vinho-escuro);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 3;
+  }
+  .env-flap {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 0;
+    width: 0;
+    border-style: solid;
+    border-width: 55px 80px 0 80px;
+    border-color: var(--vinho-claro) transparent transparent transparent;
+    transform-origin: top center;
+    transition: transform 0.4s ease;
+    z-index: 2;
+  }
+
+  .click-hint {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--vinho-claro);
+    margin-top: 0.4rem;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+  }
+
+  .date-bottom {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    color: var(--dourado);
+    margin-top: 0.4rem;
+    animation: slideUp 1s ease 0.9s both;
+  }
+
+  /* ===== PÁGINA 2 — DETALHES ===== */
+  #page2 {
+    background: var(--vinho-escuro);
+    min-height: 100vh;
+    padding: 3rem 1.5rem 4rem;
+    align-items: center;
+  }
+
+  .page2-inner {
+    max-width: 700px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    z-index: 1;
+    position: relative;
+  }
+
+  .p2-header {
+    text-align: center;
+    border-bottom: 1px solid rgba(201,169,110,0.3);
+    padding-bottom: 1.5rem;
+    width: 100%;
+  }
+  .p2-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 2.4rem;
+    color: var(--dourado-claro);
+    line-height: 1.2;
+  }
+  .p2-names {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    color: #fff;
+    letter-spacing: 0.15em;
+    margin-top: 0.3rem;
+  }
+  .p2-date-info {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    color: var(--rosa);
+    letter-spacing: 0.2em;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+  }
+  .carnaval-badge {
+    display: inline-block;
+    background: var(--dourado);
+    color: var(--vinho-escuro);
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-left: 0.5rem;
+    font-weight: 600;
+  }
+
+  /* Contagem regressiva */
+  .countdown-section {
+    width: 100%;
+    text-align: center;
+  }
+  .countdown-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--rosa);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .count-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,169,110,0.25);
+    border-radius: 8px;
+    padding: 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .count-num {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    color: var(--dourado);
+    line-height: 1;
+  }
+  .count-unit {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    color: var(--rosa);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  /* Info cards */
+  .info-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+  }
+  .info-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+  }
+  .info-card.wide { grid-column: 1 / -1; }
+  .ic-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    color: var(--dourado);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .ic-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: #fff;
+  }
+  .ic-sub {
+    font-size: 0.85rem;
+    color: var(--rosa);
+    margin-top: 0.2rem;
+    font-family: 'Lato', sans-serif;
+    line-height: 1.5;
+  }
+
+  /* Mapa */
+  .map-section {
+    width: 100%;
+  }
+  .map-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    color: var(--dourado);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .map-frame {
+    width: 100%;
+    height: 240px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(201,169,110,0.2);
+  }
+  .map-frame iframe {
+    width: 100%; height: 100%; border: none;
+  }
+  .map-buttons {
+    display: flex; gap: 10px; margin-top: 10px;
+  }
+  .map-btn {
+    flex: 1;
+    padding: 0.65rem 1rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    transition: all 0.2s;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+  }
+  .btn-waze {
+    background: #33CCFF;
+    color: #000;
+  }
+  .btn-waze:hover { opacity: 0.85; }
+  .btn-gmaps {
+    background: var(--dourado);
+    color: var(--vinho-escuro);
+  }
+  .btn-gmaps:hover { opacity: 0.85; }
+
+  /* RSVP e Lista */
+  .action-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .rsvp-btn, .gifts-btn, .back-btn {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    transition: all 0.25s;
+    text-transform: uppercase;
+  }
+  .rsvp-btn {
+    background: var(--dourado);
+    color: var(--vinho-escuro);
+    font-weight: 600;
+  }
+  .rsvp-btn:hover { background: var(--dourado-claro); transform: translateY(-1px); }
+  .gifts-btn {
+    background: transparent;
+    border: 1px solid rgba(201,169,110,0.5);
+    color: var(--dourado-claro);
+  }
+  .gifts-btn:hover { background: rgba(201,169,110,0.1); transform: translateY(-1px); }
+  .back-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.4);
+    font-size: 0.7rem;
+  }
+  .back-btn:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.6); }
+
+  /* ===== PÁGINA 3 — LISTA DE PRESENTES ===== */
+  #page3 {
+    background: var(--creme);
+    padding: 3rem 1.5rem 4rem;
+    align-items: center;
+  }
+  .page3-inner {
+    max-width: 700px;
+    width: 100%;
+    z-index: 1;
+    position: relative;
+  }
+  .p3-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .p3-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 2rem;
+    color: var(--vinho);
+    line-height: 1.2;
+  }
+  .p3-subtitle {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    color: var(--vinho-light);
+    margin-top: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+  .gifts-divider {
+    width: 80px;
+    height: 1px;
+    background: var(--dourado);
+    margin: 1rem auto;
+  }
+  .gifts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 2rem;
+  }
+  .gift-card {
+    background: #fff;
+    border: 1px solid var(--rose-pale);
+    border-radius: 12px;
+    padding: 1.4rem 1.2rem;
+    text-align: center;
+    transition: all 0.25s;
+    cursor: default;
+    box-shadow: 0 2px 12px rgba(107,26,42,0.06);
+  }
+  .gift-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(107,26,42,0.12);
+  }
+  .gift-icon {
+    font-size: 2rem;
+    margin-bottom: 0.7rem;
+    display: block;
+  }
+  .gift-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    color: var(--vinho);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+  }
+  .gift-desc {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.78rem;
+    color: #888;
+    line-height: 1.4;
+  }
+  .gift-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--dourado);
+    margin-top: 0.5rem;
+    font-weight: 600;
+  }
+
+  .pix-card {
+    background: var(--vinho);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #fff;
+  }
+  .pix-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    color: var(--dourado-claro);
+    margin-bottom: 0.5rem;
+  }
+  .pix-key {
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    color: #fff;
+    background: rgba(255,255,255,0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    display: inline-block;
+    margin: 0.4rem 0;
+    letter-spacing: 0.05em;
+  }
+  .pix-name {
+    font-size: 0.8rem;
+    color: var(--rosa);
+    margin-top: 0.3rem;
+  }
+
+  .p3-back-btn {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--vinho-light);
+    background: transparent;
+    color: var(--vinho);
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .p3-back-btn:hover { background: var(--rose-pale); }
+
+  /* ===== MODAL RSVP ===== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: var(--creme);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 420px;
+    width: 100%;
+    position: relative;
+    border: 1px solid var(--dourado-claro);
+    animation: modalIn 0.35s ease;
+  }
+  @keyframes modalIn {
+    from { transform: scale(0.92) translateY(20px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+  }
+  .modal-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: none; border: none;
+    font-size: 1.2rem; cursor: pointer;
+    color: var(--vinho-claro);
+    line-height: 1;
+  }
+  .modal-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--vinho);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+  }
+  .modal-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--vinho-light);
+    margin-bottom: 1.5rem;
+  }
+  .modal-field {
+    margin-bottom: 1rem;
+  }
+  .modal-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--vinho-light);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+  .modal-input, .modal-select {
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--rose-pale);
+    border-radius: 8px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    color: var(--vinho-escuro);
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .modal-input:focus, .modal-select:focus {
+    border-color: var(--vinho-claro);
+  }
+  .modal-send-btn {
+    width: 100%;
+    padding: 0.85rem;
+    background: #25D366;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .modal-send-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  /* ===== FLORES DECORATIVAS ===== */
+  .deco-corner {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  /* ===== ANIMAÇÕES ===== */
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-18px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes envelope-open {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.15) rotate(-3deg); }
+    60% { transform: scale(0.9); opacity: 0.7; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+  @keyframes page-transition {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 500px) {
+    .info-cards { grid-template-columns: 1fr; }
+    .countdown-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .count-num { font-size: 1.6rem; }
+    .floral-ring svg.ring-svg { width: 340px; height: 340px; }
+    .p2-title { font-size: 1.8rem; }
+    .gifts-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== MODAL RSVP ===== -->
+<div class="modal-overlay" id="rsvpModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title">Confirmação de Presença</div>
+    <div class="modal-sub">Rafael & Luana — 09 de Fevereiro de 2027</div>
+
+    <div class="modal-field">
+      <label class="modal-label">Seu nome completo</label>
+      <input class="modal-input" id="rsvp-name" type="text" placeholder="Digite seu nome">
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Quantas pessoas virão com você?</label>
+      <select class="modal-select" id="rsvp-guests">
+        <option value="1">Somente eu</option>
+        <option value="2">Eu + 1 acompanhante</option>
+        <option value="3">Eu + 2 pessoas</option>
+        <option value="4">Eu + 3 pessoas</option>
+        <option value="5">Eu + 4 pessoas</option>
+      </select>
+    </div>
+    <div class="modal-field">
+      <label class="modal-label">Algum recado para os noivos? (opcional)</label>
+      <input class="modal-input" id="rsvp-msg" type="text" placeholder="Ex: Mal posso esperar! ♥">
+    </div>
+    <button class="modal-send-btn" onclick="sendRSVP()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Confirmar via WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- ===== PÁGINA 1 — ENVELOPE ===== -->
+<div class="page active" id="page1">
+  <!-- Flores de fundo -->
+  <svg class="floral-bg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <!-- Folhas e flores decorativas nos cantos -->
+    <g opacity="0.12">
+      <!-- Canto superior esquerdo -->
+      <ellipse cx="40" cy="30" rx="35" ry="15" fill="#2D5A3D" transform="rotate(-30 40 30)"/>
+      <ellipse cx="70" cy="15" rx="28" ry="12" fill="#3D7A52" transform="rotate(15 70 15)"/>
+      <ellipse cx="20" cy="60" rx="32" ry="13" fill="#2D5A3D" transform="rotate(-50 20 60)"/>
+      <circle cx="90" cy="50" r="18" fill="#8B2A3E" opacity="0.6"/>
+      <circle cx="60" cy="70" r="12" fill="#C4768A" opacity="0.5"/>
+      <ellipse cx="110" cy="20" rx="20" ry="8" fill="#3D7A52" transform="rotate(20 110 20)"/>
+      <!-- Canto superior direito -->
+      <ellipse cx="1160" cy="30" rx="35" ry="15" fill="#2D5A3D" transform="rotate(30 1160 30)"/>
+      <ellipse cx="1130" cy="15" rx="28" ry="12" fill="#3D7A52" transform="rotate(-15 1130 15)"/>
+      <ellipse cx="1180" cy="60" rx="32" ry="13" fill="#2D5A3D" transform="rotate(50 1180 60)"/>
+      <circle cx="1110" cy="50" r="18" fill="#8B2A3E" opacity="0.6"/>
+      <circle cx="1140" cy="70" r="12" fill="#C4768A" opacity="0.5"/>
+      <!-- Canto inferior esquerdo -->
+      <ellipse cx="40" cy="870" rx="35" ry="15" fill="#2D5A3D" transform="rotate(30 40 870)"/>
+      <ellipse cx="70" cy="885" rx="28" ry="12" fill="#3D7A52" transform="rotate(-15 70 885)"/>
+      <circle cx="90" cy="850" r="18" fill="#8B2A3E" opacity="0.6"/>
+      <circle cx="60" cy="830" r="12" fill="#E8906A" opacity="0.4"/>
+      <!-- Canto inferior direito -->
+      <ellipse cx="1160" cy="870" rx="35" ry="15" fill="#2D5A3D" transform="rotate(-30 1160 870)"/>
+      <ellipse cx="1130" cy="885" rx="28" ry="12" fill="#3D7A52" transform="rotate(15 1130 885)"/>
+      <circle cx="1110" cy="850" r="18" fill="#8B2A3E" opacity="0.6"/>
+      <circle cx="1140" cy="830" r="12" fill="#E8906A" opacity="0.4"/>
+    </g>
+  </svg>
+
+  <div class="floral-ring">
+    <!-- Coroa floral em SVG ao redor do conteúdo central -->
+    <svg class="ring-svg" viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <style>
+          .leaf { fill: #2D5A3D; }
+          .leaf2 { fill: #3D7A52; }
+          .fl-vinho { fill: #6B1A2A; }
+          .fl-rosa { fill: #C4768A; }
+          .fl-coral { fill: #D4813A; }
+          .fl-creme { fill: #F5E6EA; }
+          .fl-dourado { fill: #C9A96E; }
+        </style>
+      </defs>
+      <!-- Folhas ao redor em circulo -->
+      <g transform="translate(260,260)">
+        <!-- 12 pares de folhas distribuídas em círculo -->
+        <g transform="rotate(0)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
+        <g transform="rotate(30)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
+        <g transform="rotate(60)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
+        <g transform="rotate(90)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
+        <g transform="rotate(120)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
+        <g transform="rotate(150)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
+        <g transform="rotate(180)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
+        <g transform="rotate(210)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
+        <g transform="rotate(240)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
+        <g transform="rotate(270)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
+        <g transform="rotate(300)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
+        <g transform="rotate(330)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
+
+        <!-- Flores tropicais distribuídas -->
+        <!-- Hibisco vinho pos 0° -->
+        <g transform="rotate(15) translate(0,-200)">
+          <circle cx="0" cy="0" r="8" class="fl-vinho" opacity="0.9"/>
+          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-vinho" opacity="0.8"/>
+          <ellipse cx="13" cy="-7" rx="7" ry="12" class="fl-vinho" opacity="0.8" transform="rotate(72,0,0)"/>
+          <ellipse cx="8" cy="11" rx="7" ry="12" class="fl-vinho" opacity="0.8" transform="rotate(144,0,0)"/>
+          <ellipse cx="-8" cy="11" rx="7" ry="12" class="fl-vinho" opacity="0.8" transform="rotate(216,0,0)"/>
+          <ellipse cx="-13" cy="-7" rx="7" ry="12" class="fl-vinho" opacity="0.8" transform="rotate(288,0,0)"/>
+          <circle cx="0" cy="0" r="4" class="fl-dourado"/>
+        </g>
+        <!-- Rosa coral pos 60° -->
+        <g transform="rotate(75) translate(0,-200)">
+          <circle cx="0" cy="0" r="14" class="fl-coral" opacity="0.7"/>
+          <circle cx="0" cy="-8" r="10" class="fl-rosa" opacity="0.8"/>
+          <circle cx="0" cy="0" r="6" class="fl-creme"/>
+          <circle cx="0" cy="0" r="3" class="fl-dourado"/>
+        </g>
+        <!-- Rosa vinho pos 120° -->
+        <g transform="rotate(135) translate(0,-200)">
+          <circle cx="0" cy="0" r="8" class="fl-vinho" opacity="0.9"/>
+          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.8"/>
+          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.8" transform="rotate(72,0,0)"/>
+          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-vinho" opacity="0.7" transform="rotate(144,0,0)"/>
+          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-vinho" opacity="0.7" transform="rotate(216,0,0)"/>
+          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.8" transform="rotate(288,0,0)"/>
+          <circle cx="0" cy="0" r="4" class="fl-dourado"/>
+        </g>
+        <!-- Tropical coral pos 180° -->
+        <g transform="rotate(195) translate(0,-200)">
+          <circle cx="0" cy="0" r="14" class="fl-coral" opacity="0.7"/>
+          <circle cx="0" cy="-8" r="10" class="fl-creme" opacity="0.9"/>
+          <circle cx="0" cy="0" r="5" class="fl-dourado"/>
+        </g>
+        <!-- Hibisco rosa pos 240° -->
+        <g transform="rotate(255) translate(0,-200)">
+          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.9"/>
+          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.9" transform="rotate(60,0,0)"/>
+          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.9" transform="rotate(120,0,0)"/>
+          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.9" transform="rotate(180,0,0)"/>
+          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.9" transform="rotate(240,0,0)"/>
+          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.9" transform="rotate(300,0,0)"/>
+          <circle cx="0" cy="0" r="5" class="fl-dourado"/>
+        </g>
+        <!-- Rosa pos 300° -->
+        <g transform="rotate(315) translate(0,-200)">
+          <circle cx="0" cy="0" r="14" class="fl-vinho" opacity="0.6"/>
+          <circle cx="0" cy="-8" r="10" class="fl-rosa" opacity="0.8"/>
+          <circle cx="0" cy="0" r="5" class="fl-creme"/>
+          <circle cx="0" cy="0" r="3" class="fl-dourado"/>
+        </g>
+      </g>
+    </svg>
+
+    <!-- Conteúdo central -->
+    <div class="center-content">
+      <div class="names-top">Rafael & Luana</div>
+      <div class="subtitle-top">Nosso Casamento</div>
+
+      <div class="envelope-wrap" onclick="openEnvelope()" title="Clique para abrir">
+        <div class="envelope" id="mainEnvelope">
+          <div class="env-body"></div>
+          <div class="env-fold-left"></div>
+          <div class="env-fold-right"></div>
+          <div class="env-flap" id="envFlap"></div>
+          <div class="env-seal">R&L</div>
+        </div>
+        <div class="click-hint">Clique para abrir ✦</div>
+      </div>
+
+      <div class="date-bottom">09 · 02 · 2027</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PÁGINA 2 — DETALHES ===== -->
+<div class="page" id="page2">
+  <!-- Flores decorativas de fundo escuro -->
+  <svg class="floral-bg" viewBox="0 0 1200 1400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.07">
+      <ellipse cx="60" cy="100" rx="40" ry="18" fill="#C9A96E" transform="rotate(-30 60 100)"/>
+      <ellipse cx="100" cy="60" rx="30" ry="12" fill="#E8B4C0" transform="rotate(20 100 60)"/>
+      <circle cx="40" cy="200" r="22" fill="#C4768A" opacity="0.8"/>
+      <ellipse cx="1160" cy="100" rx="40" ry="18" fill="#C9A96E" transform="rotate(30 1160 100)"/>
+      <circle cx="1160" cy="200" r="22" fill="#C4768A" opacity="0.8"/>
+      <ellipse cx="60" cy="1300" rx="40" ry="18" fill="#C9A96E" transform="rotate(30 60 1300)"/>
+      <circle cx="40" cy="1200" r="22" fill="#C4768A" opacity="0.8"/>
+      <ellipse cx="1160" cy="1300" rx="40" ry="18" fill="#C9A96E" transform="rotate(-30 1160 1300)"/>
+      <circle cx="1160" cy="1200" r="22" fill="#C4768A" opacity="0.8"/>
+    </g>
+  </svg>
+
+  <div class="page2-inner">
+    <div class="p2-header">
+      <div class="p2-title">Vem celebrar conosco</div>
+      <div class="p2-names">Rafael & Luana</div>
+      <div class="p2-date-info">
+        09 de Fevereiro de 2027 · Segunda-feira
+        <span class="carnaval-badge">♥ Carnaval</span>
+      </div>
+    </div>
+
+    <!-- Contagem regressiva -->
+    <div class="countdown-section">
+      <div class="countdown-label">Faltam...</div>
+      <div class="countdown-grid">
+        <div class="count-box"><span class="count-num" id="cnt-days">000</span><span class="count-unit">dias</span></div>
+        <div class="count-box"><span class="count-num" id="cnt-hours">00</span><span class="count-unit">horas</span></div>
+        <div class="count-box"><span class="count-num" id="cnt-min">00</span><span class="count-unit">min</span></div>
+        <div class="count-box"><span class="count-num" id="cnt-sec">00</span><span class="count-unit">seg</span></div>
+      </div>
+    </div>
+
+    <!-- Info cards -->
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="ic-label">📅 Data</div>
+        <div class="ic-value">09/02/2027</div>
+        <div class="ic-sub">Segunda-feira de Carnaval</div>
+      </div>
+      <div class="info-card">
+        <div class="ic-label">🕕 Horário</div>
+        <div class="ic-value">18h00</div>
+        <div class="ic-sub">Cerimônia e recepção</div>
+      </div>
+      <div class="info-card wide">
+        <div class="ic-label">🏡 Local</div>
+        <div class="ic-value">Sítio do meu Pai</div>
+        <div class="ic-sub">Rua Marechal Deodoro da Fonseca, Lota 04, Quadra 1 — Santa Cruz da Serra, Duque de Caxias · RJ · 25260-300</div>
+      </div>
+    </div>
+
+    <!-- Mapa -->
+    <div class="map-section">
+      <div class="map-title">📍 Como chegar</div>
+      <div class="map-frame">
+        <iframe
+          src="https://maps.google.com/maps?q=Rua+Marechal+Deodoro+da+Fonseca+Santa+Cruz+da+Serra+Duque+de+Caxias+RJ+25260-300&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          allowfullscreen loading="lazy">
+        </iframe>
+      </div>
+      <div class="map-buttons">
+        <a class="map-btn btn-waze"
+          href="https://waze.com/ul?q=Rua+Marechal+Deodoro+da+Fonseca,+Santa+Cruz+da+Serra,+Duque+de+Caxias,+RJ&navigate=yes"
+          target="_blank">🚗 Abrir no Waze</a>
+        <a class="map-btn btn-gmaps"
+          href="https://www.google.com/maps/dir/?api=1&destination=Rua+Marechal+Deodoro+da+Fonseca,+Santa+Cruz+da+Serra,+Duque+de+Caxias,+RJ,+25260-300"
+          target="_blank">🗺️ Google Maps</a>
+      </div>
+    </div>
+
+    <!-- Ações -->
+    <div class="action-section">
+      <button class="rsvp-btn" onclick="openModal()">✉ Confirmar Presença</button>
+      <button class="gifts-btn" onclick="goToPage('page3')">🎁 Lista de Presentes</button>
+      <button class="back-btn" onclick="goToPage('page1')">← Voltar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PÁGINA 3 — LISTA DE PRESENTES ===== -->
+<div class="page" id="page3">
+  <div class="page3-inner">
+    <div class="p3-header">
+      <div class="p3-title">Lista de Presentes</div>
+      <div class="gifts-divider"></div>
+      <div class="p3-subtitle">Com amor e gratidão por cada gesto ♥</div>
+    </div>
+
+    <div class="gifts-grid">
+      <div class="gift-card">
+        <span class="gift-icon">🍳</span>
+        <div class="gift-name">Jogo de Panelas</div>
+        <div class="gift-desc">Conjunto tramontina inox premium</div>
+        <div class="gift-price">R$ 350</div>
+      </div>
+      <div class="gift-card">
+        <span class="gift-icon">🛏️</span>
+        <div class="gift-name">Jogo de Cama</div>
+        <div class="gift-desc">Lençol 600 fios Queen Size</div>
+        <div class="gift-price">R$ 280</div>
+      </div>
+      <div class="gift-card">
+        <span class="gift-icon">🥂</span>
+        <div class="gift-name">Taças de Cristal</div>
+        <div class="gift-desc">Conjunto 6 taças bordeaux</div>
+        <div class="gift-price">R$ 180</div>
+      </div>
+      <div class="gift-card">
+        <span class="gift-icon">☕</span>
+        <div class="gift-name">Cafeteira</div>
+        <div class="gift-desc">Nespresso Vertuo Plus</div>
+        <div class="gift-price">R$ 450</div>
+      </div>
+      <div class="gift-card">
+        <span class="gift-icon">🪴</span>
+        <div class="gift-name">Utensílios Cozinha</div>
+        <div class="gift-desc">Kit completo de utensílios</div>
+        <div class="gift-price">R$ 150</div>
+      </div>
+      <div class="gift-card">
+        <span class="gift-icon">🖼️</span>
+        <div class="gift-name">Quadro Decorativo</div>
+        <div class="gift-desc">Arte para sala de estar</div>
+        <div class="gift-price">R$ 200</div>
+      </div>
+      <div class="gift-card">
+        <span class="gift-icon">🏠</span>
+        <div class="gift-name">Toalhas de Banho</div>
+        <div class="gift-desc">Jogo 6 peças felpudo premium</div>
+        <div class="gift-price">R$ 220</div>
+      </div>
+      <div class="gift-card">
+        <span class="gift-icon">🌿</span>
+        <div class="gift-name">Liquidificador</div>
+        <div class="gift-desc">Mondial turbo power inox</div>
+        <div class="gift-price">R$ 190</div>
+      </div>
+    </div>
+
+    <!-- Pix -->
+    <div class="pix-card">
+      <div class="pix-title">🔑 Ou contribua via PIX</div>
+      <div style="font-family:'Lato',sans-serif;font-size:0.8rem;color:#E8B4C0;margin-bottom:0.5rem;">Chave PIX</div>
+      <div class="pix-key" id="pixKey" onclick="copyPix()" style="cursor:pointer;" title="Clique para copiar">
+        (21) 99999-0000
+      </div>
+      <div class="pix-name">Rafael ou Luana — qualquer valor é bem-vindo com muito amor ♥</div>
+    </div>
+
+    <button class="p3-back-btn" onclick="goToPage('page2')">← Voltar para o Convite</button>
+  </div>
+</div>
+
+<script>
+  // ===== NAVEGAÇÃO =====
+  function goToPage(id) {
+    document.querySelectorAll('.page').forEach(p => {
+      p.classList.remove('active');
+      p.style.animation = '';
+    });
+    const target = document.getElementById(id);
+    target.classList.add('active');
+    target.style.animation = 'page-transition 0.6s ease forwards';
+    window.scrollTo(0, 0);
+  }
+
+  // ===== ENVELOPE =====
+  function openEnvelope() {
+    const env = document.getElementById('mainEnvelope');
+    const flap = document.getElementById('envFlap');
+    flap.style.transform = 'rotateX(-180deg)';
+    flap.style.transition = 'transform 0.5s ease';
+    setTimeout(() => {
+      env.style.animation = 'envelope-open 0.8s ease forwards';
+    }, 400);
+    setTimeout(() => {
+      goToPage('page2');
+      startCountdown();
+    }, 1100);
+  }
+
+  // ===== CONTAGEM REGRESSIVA =====
+  function startCountdown() {
+    function update() {
+      const now = new Date();
+      const target = new Date('2027-02-09T18:00:00');
+      const diff = target - now;
+      if (diff <= 0) {
+        document.getElementById('cnt-days').textContent = '000';
+        document.getElementById('cnt-hours').textContent = '00';
+        document.getElementById('cnt-min').textContent = '00';
+        document.getElementById('cnt-sec').textContent = '00';
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cnt-days').textContent = String(d).padStart(3, '0');
+      document.getElementById('cnt-hours').textContent = String(h).padStart(2, '0');
+      document.getElementById('cnt-min').textContent = String(m).padStart(2, '0');
+      document.getElementById('cnt-sec').textContent = String(s).padStart(2, '0');
+    }
+    update();
+    setInterval(update, 1000);
+  }
+  // Inicia contagem se já estiver na página 2
+  startCountdown();
+
+  // ===== MODAL RSVP =====
+  function openModal() {
+    document.getElementById('rsvpModal').classList.add('open');
+  }
+  function closeModal() {
+    document.getElementById('rsvpModal').classList.remove('open');
+  }
+  document.getElementById('rsvpModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  function sendRSVP() {
+    const name = document.getElementById('rsvp-name').value.trim();
+    const guests = document.getElementById('rsvp-guests').value;
+    const msg = document.getElementById('rsvp-msg').value.trim();
+    if (!name) {
+      alert('Por favor, informe seu nome!');
+      return;
+    }
+    const guestLabel = guests === '1' ? 'Somente eu' : `Eu + ${parseInt(guests)-1} acompanhante${parseInt(guests)>2?'s':''}`;
+    let text = `🌸 *Confirmação de Presença* 🌸\n\n`;
+    text += `*Casamento Rafael & Luana*\n`;
+    text += `📅 09/02/2027 — Carnaval\n\n`;
+    text += `👤 *Convidado:* ${name}\n`;
+    text += `👥 *Pessoas:* ${guestLabel}\n`;
+    if (msg) text += `💬 *Recado:* ${msg}\n`;
+    text += `\n_Mal posso esperar para celebrar com vocês! ❤️_`;
+    const phone = '5521999990000';
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+    closeModal();
+  }
+
+  // ===== COPIAR PIX =====
+  function copyPix() {
+    const key = document.getElementById('pixKey').textContent.trim();
+    navigator.clipboard.writeText(key).then(() => {
+      const el = document.getElementById('pixKey');
+      const orig = el.textContent;
+      el.textContent = '✓ Copiado!';
+      setTimeout(() => { el.textContent = orig; }, 1800);
+    });
+  }
+</script>
+</body>
+</html>
