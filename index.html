@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rafael & Luana — Nosso Casamento</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,20０;1,3０;1,4０;1,5０;1,6０;1,7０;1,8０;1,9０&display=swap" rel="stylesheet">
 <style>
+  
   :root {
     --vinho: #6B1A2A;
     --vinho-escuro: #4A0F1C;
@@ -40,6 +45,15 @@
   }
   .page.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
+img{
+    position: absolute;
+    width: 100%;
+    max-width: 900px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -55%);
+    pointer-events: none;
+    z-index: 1;}
   /* ===== FLORES SVG DE FUNDO ===== */
   .floral-bg {
     position: absolute;
@@ -226,8 +240,8 @@
     line-height: 1.2;
   }
   .p2-names {
-    font-family: 'Cinzel', serif;
-    font-size: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.0rem;
     color: #fff;
     letter-spacing: 0.15em;
     margin-top: 0.3rem;
@@ -261,7 +275,7 @@
   .countdown-label {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 1rem;
+    font-size: 2rem;
     color: var(--rosa);
     margin-bottom: 1rem;
     letter-spacing: 0.1em;
@@ -309,6 +323,7 @@
     border: 1px solid rgba(201,169,110,0.2);
     border-radius: 10px;
     padding: 1.2rem 1.4rem;
+  
   }
   .info-card.wide { grid-column: 1 / -1; }
   .ic-label {
@@ -318,7 +333,10 @@
     letter-spacing: 0.25em;
     text-transform: uppercase;
     margin-bottom: 0.4rem;
-    display: flex; align-items: center; gap: 6px;
+    display: flex;
+    
+    align-items: center; 
+    gap: 6px;
   }
   .ic-value {
     font-family: 'Cormorant Garamond', serif;
@@ -375,15 +393,21 @@
     display: block;
   }
   .btn-waze {
-    background: #33CCFF;
+    background: #83ddfc;
     color: #000;
+    
   }
-  .btn-waze:hover { opacity: 0.85; }
+  .btn-waze:hover { opacity: 0.5; 
+  animation: flutuar 3s ease-in-out infinite;
+  transition: all 0.3s ease;}
   .btn-gmaps {
     background: var(--dourado);
     color: var(--vinho-escuro);
   }
-  .btn-gmaps:hover { opacity: 0.85; }
+  .btn-gmaps:hover { 
+    opacity: 0.5; 
+  animation: flutuar 3s ease-in-out infinite;
+  transition: all 0.3s ease;}
 
   /* RSVP e Lista */
   .action-section {
@@ -580,6 +604,19 @@
     from { transform: scale(0.92) translateY(20px); opacity: 0; }
     to { transform: scale(1) translateY(0); opacity: 1; }
   }
+  @keyframes flutuar {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
   .modal-close {
     position: absolute;
     top: 1rem; right: 1rem;
@@ -672,12 +709,73 @@
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 500px) {
+
+.center-content{
+transform: scale(0.75);
+}
+
+.
+
     .info-cards { grid-template-columns: 1fr; }
     .countdown-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
-    .count-num { font-size: 1.6rem; }
+    .count-num { font-size: 1.9rem; font-weight:bold;}
     .floral-ring svg.ring-svg { width: 340px; height: 340px; }
     .p2-title { font-size: 1.8rem; }
     .gifts-grid { grid-template-columns: repeat(2, 1fr); }
+    .info-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+    text-align: center;
+  }
+  .info-card.wide { grid-column: 1 / -1; }
+  .ic-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.80rem;
+    color: var(--dourado);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    gap: 6px;
+    font-weight: bold;
+  }
+
+.map-title{
+  justify-content: center;
+}
+.modal-overlay.open{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.modal-box{
+  background: var(--rose-pale);
+}
+.modal-title{
+  color:var(--vinho);
+}
+.modal-sub{
+  color:var(--vinho);
+font-size: 1.2rem;
+font-weight: bold;
+
+
+}
+.modal-label{
+  color:var(--vinho);
+}
+
+#title-qts{
+  display: none;;
+}
+.modal-select{
+  display: none;
+}
+
   }
 </style>
 </head>
@@ -695,7 +793,7 @@
       <input class="modal-input" id="rsvp-name" type="text" placeholder="Digite seu nome">
     </div>
     <div class="modal-field">
-      <label class="modal-label">Quantas pessoas virão com você?</label>
+      <label class="modal-label" id="title-qts">Quantas pessoas virão com você?</label>
       <select class="modal-select" id="rsvp-guests">
         <option value="1">Somente eu</option>
         <option value="2">Eu + 1 acompanhante</option>
@@ -717,119 +815,10 @@
 
 <!-- ===== PÁGINA 1 — ENVELOPE ===== -->
 <div class="page active" id="page1">
-  <!-- Flores de fundo -->
-  <svg class="floral-bg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <!-- Folhas e flores decorativas nos cantos -->
-    <g opacity="0.12">
-      <!-- Canto superior esquerdo -->
-      <ellipse cx="40" cy="30" rx="35" ry="15" fill="#2D5A3D" transform="rotate(-30 40 30)"/>
-      <ellipse cx="70" cy="15" rx="28" ry="12" fill="#3D7A52" transform="rotate(15 70 15)"/>
-      <ellipse cx="20" cy="60" rx="32" ry="13" fill="#2D5A3D" transform="rotate(-50 20 60)"/>
-      <circle cx="90" cy="50" r="18" fill="#8B2A3E" opacity="0.6"/>
-      <circle cx="60" cy="70" r="12" fill="#C4768A" opacity="0.5"/>
-      <ellipse cx="110" cy="20" rx="20" ry="8" fill="#3D7A52" transform="rotate(20 110 20)"/>
-      <!-- Canto superior direito -->
-      <ellipse cx="1160" cy="30" rx="35" ry="15" fill="#2D5A3D" transform="rotate(30 1160 30)"/>
-      <ellipse cx="1130" cy="15" rx="28" ry="12" fill="#3D7A52" transform="rotate(-15 1130 15)"/>
-      <ellipse cx="1180" cy="60" rx="32" ry="13" fill="#2D5A3D" transform="rotate(50 1180 60)"/>
-      <circle cx="1110" cy="50" r="18" fill="#8B2A3E" opacity="0.6"/>
-      <circle cx="1140" cy="70" r="12" fill="#C4768A" opacity="0.5"/>
-      <!-- Canto inferior esquerdo -->
-      <ellipse cx="40" cy="870" rx="35" ry="15" fill="#2D5A3D" transform="rotate(30 40 870)"/>
-      <ellipse cx="70" cy="885" rx="28" ry="12" fill="#3D7A52" transform="rotate(-15 70 885)"/>
-      <circle cx="90" cy="850" r="18" fill="#8B2A3E" opacity="0.6"/>
-      <circle cx="60" cy="830" r="12" fill="#E8906A" opacity="0.4"/>
-      <!-- Canto inferior direito -->
-      <ellipse cx="1160" cy="870" rx="35" ry="15" fill="#2D5A3D" transform="rotate(-30 1160 870)"/>
-      <ellipse cx="1130" cy="885" rx="28" ry="12" fill="#3D7A52" transform="rotate(15 1130 885)"/>
-      <circle cx="1110" cy="850" r="18" fill="#8B2A3E" opacity="0.6"/>
-      <circle cx="1140" cy="830" r="12" fill="#E8906A" opacity="0.4"/>
-    </g>
-  </svg>
+  <div class="left-content">
+<img src="./ChatGPT_Image_30_de_mai._de_2026__21_13_51-removebg-preview.png" alt="Flores">
 
-  <div class="floral-ring">
-    <!-- Coroa floral em SVG ao redor do conteúdo central -->
-    <svg class="ring-svg" viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <style>
-          .leaf { fill: #2D5A3D; }
-          .leaf2 { fill: #3D7A52; }
-          .fl-vinho { fill: #6B1A2A; }
-          .fl-rosa { fill: #C4768A; }
-          .fl-coral { fill: #D4813A; }
-          .fl-creme { fill: #F5E6EA; }
-          .fl-dourado { fill: #C9A96E; }
-        </style>
-      </defs>
-      <!-- Folhas ao redor em circulo -->
-      <g transform="translate(260,260)">
-        <!-- 12 pares de folhas distribuídas em círculo -->
-        <g transform="rotate(0)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
-        <g transform="rotate(30)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
-        <g transform="rotate(60)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
-        <g transform="rotate(90)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
-        <g transform="rotate(120)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
-        <g transform="rotate(150)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
-        <g transform="rotate(180)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
-        <g transform="rotate(210)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
-        <g transform="rotate(240)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
-        <g transform="rotate(270)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
-        <g transform="rotate(300)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
-        <g transform="rotate(330)"><ellipse cx="0" cy="-220" rx="14" ry="38" class="leaf" opacity="0.85" transform="rotate(-15,0,-220)"/><ellipse cx="8" cy="-215" rx="11" ry="30" class="leaf2" opacity="0.7" transform="rotate(10,8,-215)"/></g>
-
-        <!-- Flores tropicais distribuídas -->
-        <!-- Hibisco vinho pos 0° -->
-        <g transform="rotate(15) translate(0,-200)">
-          <circle cx="0" cy="0" r="8" class="fl-vinho" opacity="0.9"/>
-          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-vinho" opacity="0.8"/>
-          <ellipse cx="13" cy="-7" rx="7" ry="12" class="fl-vinho" opacity="0.8" transform="rotate(72,0,0)"/>
-          <ellipse cx="8" cy="11" rx="7" ry="12" class="fl-vinho" opacity="0.8" transform="rotate(144,0,0)"/>
-          <ellipse cx="-8" cy="11" rx="7" ry="12" class="fl-vinho" opacity="0.8" transform="rotate(216,0,0)"/>
-          <ellipse cx="-13" cy="-7" rx="7" ry="12" class="fl-vinho" opacity="0.8" transform="rotate(288,0,0)"/>
-          <circle cx="0" cy="0" r="4" class="fl-dourado"/>
-        </g>
-        <!-- Rosa coral pos 60° -->
-        <g transform="rotate(75) translate(0,-200)">
-          <circle cx="0" cy="0" r="14" class="fl-coral" opacity="0.7"/>
-          <circle cx="0" cy="-8" r="10" class="fl-rosa" opacity="0.8"/>
-          <circle cx="0" cy="0" r="6" class="fl-creme"/>
-          <circle cx="0" cy="0" r="3" class="fl-dourado"/>
-        </g>
-        <!-- Rosa vinho pos 120° -->
-        <g transform="rotate(135) translate(0,-200)">
-          <circle cx="0" cy="0" r="8" class="fl-vinho" opacity="0.9"/>
-          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.8"/>
-          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.8" transform="rotate(72,0,0)"/>
-          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-vinho" opacity="0.7" transform="rotate(144,0,0)"/>
-          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-vinho" opacity="0.7" transform="rotate(216,0,0)"/>
-          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.8" transform="rotate(288,0,0)"/>
-          <circle cx="0" cy="0" r="4" class="fl-dourado"/>
-        </g>
-        <!-- Tropical coral pos 180° -->
-        <g transform="rotate(195) translate(0,-200)">
-          <circle cx="0" cy="0" r="14" class="fl-coral" opacity="0.7"/>
-          <circle cx="0" cy="-8" r="10" class="fl-creme" opacity="0.9"/>
-          <circle cx="0" cy="0" r="5" class="fl-dourado"/>
-        </g>
-        <!-- Hibisco rosa pos 240° -->
-        <g transform="rotate(255) translate(0,-200)">
-          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.9"/>
-          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.9" transform="rotate(60,0,0)"/>
-          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.9" transform="rotate(120,0,0)"/>
-          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.9" transform="rotate(180,0,0)"/>
-          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.9" transform="rotate(240,0,0)"/>
-          <ellipse cx="0" cy="-14" rx="7" ry="12" class="fl-rosa" opacity="0.9" transform="rotate(300,0,0)"/>
-          <circle cx="0" cy="0" r="5" class="fl-dourado"/>
-        </g>
-        <!-- Rosa pos 300° -->
-        <g transform="rotate(315) translate(0,-200)">
-          <circle cx="0" cy="0" r="14" class="fl-vinho" opacity="0.6"/>
-          <circle cx="0" cy="-8" r="10" class="fl-rosa" opacity="0.8"/>
-          <circle cx="0" cy="0" r="5" class="fl-creme"/>
-          <circle cx="0" cy="0" r="3" class="fl-dourado"/>
-        </g>
-      </g>
-    </svg>
+  </div>
 
     <!-- Conteúdo central -->
     <div class="center-content">
@@ -914,16 +903,16 @@
       <div class="map-title">📍 Como chegar</div>
       <div class="map-frame">
         <iframe
-          src="https://maps.google.com/maps?q=Rua+Marechal+Deodoro+da+Fonseca+Santa+Cruz+da+Serra+Duque+de+Caxias+RJ+25260-300&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3682.4660618373064!2d-43.2690129!3d-22.6364055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x997348620e892b%3A0x8a6790e439e004a5!2sS%C3%ADtio%20do%20Meu%20Pai!5e0!3m2!1spt-BR!2sbr!4v1780186691976!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
           allowfullscreen loading="lazy">
         </iframe>
       </div>
       <div class="map-buttons">
         <a class="map-btn btn-waze"
-          href="https://waze.com/ul?q=Rua+Marechal+Deodoro+da+Fonseca,+Santa+Cruz+da+Serra,+Duque+de+Caxias,+RJ&navigate=yes"
+          href="https://www.google.com/maps/dir/S%C3%ADtio+do+Meu+Pai,+Rua+Marechal+Deodoro+da+Fonseca,+Lota+04,+Quadra+1,+R+Mal+Deodoro,+s%2Fn+-+Santa+Cruz+da+Serra,+Duque+de+Caxias+-+RJ,+25260-300/-22.8629,-43.245/@-22.7523596,-43.4287449,11z/data=!3m1!4b1!4m9!4m8!1m5!1m1!1s0x997348620e892b:0x8a6790e439e004a5!2m2!1d-43.2690129!2d-22.6364055!1m1!4e1?entry=ttu&g_ep=EgoyMDI2MDUyNS4wIKXMDSoASAFQAw%3D%3D"
           target="_blank">🚗 Abrir no Waze</a>
         <a class="map-btn btn-gmaps"
-          href="https://www.google.com/maps/dir/?api=1&destination=Rua+Marechal+Deodoro+da+Fonseca,+Santa+Cruz+da+Serra,+Duque+de+Caxias,+RJ,+25260-300"
+          href="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d941149.9338997719!2d-43.245!3d-22.8629!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x997348620e892b%3A0x8a6790e439e004a5!2sS%C3%ADtio%20do%20Meu%20Pai!5e0!3m2!1spt-BR!2sbr!4v1779975775825!5m2!1spt-BR!2sbr"
           target="_blank">🗺️ Google Maps</a>
       </div>
     </div>
@@ -1080,21 +1069,20 @@
 
   function sendRSVP() {
     const name = document.getElementById('rsvp-name').value.trim();
-    const guests = document.getElementById('rsvp-guests').value;
-    const msg = document.getElementById('rsvp-msg').value.trim();
+        const msg = document.getElementById('rsvp-msg').value.trim();
     if (!name) {
       alert('Por favor, informe seu nome!');
       return;
     }
-    const guestLabel = guests === '1' ? 'Somente eu' : `Eu + ${parseInt(guests)-1} acompanhante${parseInt(guests)>2?'s':''}`;
+    
     let text = `🌸 *Confirmação de Presença* 🌸\n\n`;
     text += `*Casamento Rafael & Luana*\n`;
-    text += `📅 09/02/2027 — Carnaval\n\n`;
+    text += `📅 09/02/2027 - 18:00 horas\n\n`;
     text += `👤 *Convidado:* ${name}\n`;
-    text += `👥 *Pessoas:* ${guestLabel}\n`;
+   
     if (msg) text += `💬 *Recado:* ${msg}\n`;
     text += `\n_Mal posso esperar para celebrar com vocês! ❤️_`;
-    const phone = '5521999990000';
+    const phone = '5521989758957';
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
     closeModal();
